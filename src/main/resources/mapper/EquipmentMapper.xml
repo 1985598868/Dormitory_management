@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//    rEN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:名称空间-->
+<!--设置sql映射文件的namespace属性为Mapper接口全限定名-->
+<mapper namespace="com.example.uml_work.mapper.EquipmentMapper">
+
+
+    <select id="selectPageVo" resultType="com.example.uml_work.bean.Equipment">#
+        select equipment,is_damage,is_guarantee from studentequipments where student_id = #{StudentId}
+    </select>
+</mapper>

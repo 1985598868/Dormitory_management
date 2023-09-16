@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//    rEN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:名称空间-->
+<!--设置sql映射文件的namespace属性为Mapper接口全限定名-->
+<mapper namespace="com.example.uml_work.mapper.StudentMapper">
+
+    <resultMap id="mapStudent" type="student">
+        <id property="studentId" column="student_id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex" javaType="com.example.uml_work.enums.SexEnum" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result property="className" column="class_name"/>
+        <result property="grade" column="grade"/>
+        <result property="dormitoryId" column="dormitory_id"/>
+<!--     Dormitory dormitory  -->
+        <association property="dormitory" javaType="Dormitory" column="dormitory_id">
+            <result property="studentA" column="Student_a"/>
+            <result property="studentB" column="Student_b"/>
+            <result property="studentC" column="Student_c"/>
+            <result property="studentD" column="Student_d"/>
+        </association>
+<!--        <association property="testOne" column="one_id" javaType="TestOne">-->
+<!--            <id property="id" column="oneid"/>-->
+<!--            <result property="nickname" column="onenickname"/>-->
+<!--        </association>    -->
+    </resultMap>
+    <select id="selectMyDormitoryAndMyInfo" resultMap="mapStudent">
+        Select student_id,name,sex,grade,class_name,Studentinfo.dormitory_id dormitory_id,Student_a,Student_b,Student_c,Student_d
+        from Studentinfo join dormitoryinfo d on studentinfo.dormitory_id = d.dormitory_id
+        where Studentinfo.Student_id = #{StudentId}
+    </select>
+</mapper>
